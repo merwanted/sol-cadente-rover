@@ -1,20 +1,20 @@
 <p align="center">
-  <a href="README.md">🇹🇷 <b>Türkçe</b></a> | <a href="README.en.md">🇬🇧 <b>English</b></a>
+  <a href="README.md">🇬🇧 <b>English</b></a> | <a href="README.tr.md">🇹🇷 <b>Türkçe</b></a>
 </p>
 
-# 🪐 Sol Cadente (Ahien-14) — Otonom Gezegen Keşif Aracı (Planetary Rover)
+# 🪐 Sol Cadente (Ahien-14) — Autonomous Planetary Exploration Rover
 
-<div align=\"center\">
+<div align="center">
 
 [![Award](https://img.shields.io/badge/Award-1st%20Place%20Winner%20%F0%9F%8F%86-ffd700?style=for-the-badge&labelColor=1a1a1a)](https://github.com/merwanted/sol-cadente-rover)
 [![Event](https://img.shields.io/badge/Event-TUA%20Astro%20Hackathon%202026-0A66C2?style=for-the-badge&labelColor=1a1a1a)](https://github.com/merwanted/sol-cadente-rover)
-[![Organizer](https://img.shields.io/badge/Host-T%C3%BCrkiye%20Uzay%20Ajans%C4%B1%20(TUA)-red?style=for-the-badge&labelColor=1a1a1a)](https://github.com/merwanted/sol-cadente-rover)
+[![Organizer](https://img.shields.io/badge/Host-Turkish%20Space%20Agency%20(TUA)-red?style=for-the-badge&labelColor=1a1a1a)](https://github.com/merwanted/sol-cadente-rover)
 [![Team](https://img.shields.io/badge/Team-Sol%20Cadente-orange?style=for-the-badge&labelColor=1a1a1a)](https://github.com/merwanted/sol-cadente-rover)
 [![AI](https://img.shields.io/badge/VLM-Gemma%203%2012B%20Multimodal-purple?style=for-the-badge&labelColor=1a1a1a)](https://github.com/merwanted/sol-cadente-rover)
 
-<p align=\"center\">
-  <b>Türkiye Uzay Ajansı (TUA) Astro Hackathonu 1.lik Ödülü Kazanan Gezegen Gezgini Prototipi</b><br/>
-  <i>Çok modlu Görsel Dil Modeli (VLM) destekli rota planlama, telemetri yer istasyonu ve Wi-Fi sinyali koptuğunda kendi izini sürerek geri dönen otonom fail-safe algoritması.</i>
+<p align="center">
+  <b>1st Place Winning Planetary Rover Prototype at the Turkish Space Agency (TUA) Astro Hackathon</b><br/>
+  <i>Multimodal Vision-Language Model (VLM) route planning, ground control telemetry station, and autonomous fail-safe backtracking when RF/Wi-Fi connection is lost.</i>
 </p>
 
 </div>
@@ -22,129 +22,130 @@
 ---
 
 <div align="center">
-  <img src="docs/rover_prototype.jpg" alt="Sol Cadente Rover Prototipi" width="48%" style="border-radius: 8px;"/>
-  <img src="docs/tua_1st_award.jpg" alt="TUA 1.lik Ödülü ve Kupa" width="48%" style="border-radius: 8px;"/>
+  <img src="docs/rover_prototype.jpg" alt="Sol Cadente Rover Hardware Prototype" width="48%" style="border-radius: 8px;"/>
+  <img src="docs/tua_1st_award.jpg" alt="TUA 1st Place Trophy and Award" width="48%" style="border-radius: 8px;"/>
 </div>
 
 ---
 
-> ⚠️ **Proje Durumu:** Bu depo, **Türkiye Uzay Ajansı (TUA) Astro Hackathon** maratonu kapsamında **Sol Cadente** takımı tarafından 48 saatlik yarışma sürecinde geliştirilmiş, fiziki zorlu zemin parkurunda test edilmiş ve jüri önünde sergilenmiş **çalışan bir yarışma prototipidir (Competition MVP & Hardware Prototype)**.
+> ⚠️ **Project Status:** This repository contains the **functional hardware and software prototype (Competition MVP / Proof of Concept)** developed by team **Sol Cadente** during the 48-hour **Turkish Space Agency (TUA) Astro Hackathon**, tested on physically demanding terrain obstacle tracks, and evaluated live before the jury.
 
 ---
 
-## 📌 Problem ve Mühendislik Vizyonu
+## 📌 Problem Statement & Engineering Vision
 
-Ay ve Mars gibi zorlu gezegen yüzeylerinde otonom keşif araçlarının (Rover) karşılaştığı en kritik problemler:
-1. **İletişim Kopması (Signal Shadowing):** Kraterler, kaya blokları veya toz fırtınaları nedeniyle yer istasyonu ile radyo/Wi-Fi telemetri bağlantısının aniden kesilmesi.
-2. **Kör Engel Navigasyonu:** Sadece ultrasonik sensörlerin engebeli arazide yetersiz kalması; optik kamera görüntüsü ile anlamsal çevre algısının (Semantic Scene Understanding) zorunluluğu.
-3. **Yol Verimliliği & Otonom Dönüş (RTH):** Görev tamamlandığında veya acil durumda aracın harcanan enerjiyi ve sapmaları minimize ederek güvenli üsse geri dönebilmesi.
+Planetary exploration rovers operating on demanding lunar and martian terrains face three mission-critical failure modes:
+1. **Signal Shadowing & Link Loss:** Sudden severance of radio/Wi-Fi telemetry with the ground station due to craters, boulders, or dust conditions.
+2. **Blind Obstacle Navigation:** Ultrasonic sensors alone are insufficient on rough topological surfaces; semantic visual scene understanding via optical cameras is mandatory.
+3. **Path Efficiency & Return-to-Base (RTH):** Safely returning to base upon mission completion or emergency while minimizing energy expenditure and heading deviations.
 
-**Ahien-14 (Sol Cadente)**, bu üç problemi gömülü donanım, yerel VLM yapay zekâsı ve otonom geri iz sürme yazılımıyla tek potada çözen uçtan uca bir sistemdir.
+**Ahien-14 (Sol Cadente)** solves all three challenges in an end-to-end integrated system combining embedded hardware, localized VLM intelligence, and autonomous reverse-odometry backtracking.
 
 ---
 
-## 🏗️ Sistem Mimarisi
+## 🏗️ System Architecture
 
 ```
   ┌────────────────────────────────────────────────────────────────────────┐
-  │                      SOL CADENTE ROVER MİMARİSİ                        │
+  │                      SOL CADENTE ROVER ARCHITECTURE                    │
   └───────────────────────────────────┬────────────────────────────────────┘
                                       │
      ┌────────────────────────────────┴────────────────────────────────┐
      ▼                                                                 ▼
-【 🌍 YER İSTASYONU (Ground Control) 】                 【 🤖 ROVER DONANIMI (Onboard) 】
-• Flask Web Dashboard (`dashboard.html`)                • Raspberry Pi 4 (Telemetri & Ağ İletişimi)
-• OpenCV Canlı Video İşleme (640x480 MJPEG)            • Otonom Fail-Safe Geri Dönüş (`pi.py`)
-• Çok Modlu Yapay Zekâ (Gemma 3:12B via Ollama)         • Arduino Donanım Sürücüsü (`car.ino`)
-• 2D Rota Takipçisi (Dead-Reckoning Koordinat)          • L298N Çift H-Köprüsü (PWM Diferansiyel Sürüş)
-• Görev Yönetim Motoru (`mission.json`)                 • HC-SR04 Ultrasonik Engel Algılama (<20cm)
-• Tek Tıkla Otonom Üsse Dönüş (RTH)                    • DHT22 Sıcaklık/Nem & I2C 16x2 LCD Telemetri
+【 🌍 GROUND CONTROL STATION (PC) 】                    【 🤖 ONBOARD ROVER HARDWARE 】
+• Flask Web Dashboard (`dashboard.html`)                • Raspberry Pi 4 (Telemetry & Network Bridge)
+• OpenCV Real-time Video Stream (640x480 MJPEG)         • Autonomous Fail-Safe Backtracking (`pi.py`)
+• Multimodal AI (Gemma 3:12B via Ollama)                • Arduino Embedded Hardware Driver (`car.ino`)
+• 2D Odometry Tracker (Dead-Reckoning Coordinates)      • Dual H-Bridge L298N (PWM Differential Drive)
+• Mission Execution Engine (`mission.json`)             • HC-SR04 Ultrasonic Obstacle Ranging (<20cm)
+• One-Click Return-to-Home (RTH)                        • DHT22 Climate Telemetry & I2C 16x2 Display
 ```
 
 ---
 
-## 🚀 Öne Çıkan Mühendislik Yetenekleri
+## 🚀 Key Engineering Capabilities
 
-### 1. 🛡️ Otonom Geri İz Sürme (Autonomous Fail-Safe Backtracking - `pi.py`)
-Rover, yer istasyonuyla iletişim halindeyken aldığı her yön ve süre komutunu (`F 150`, `R 600` vb.) yerel hafızasındaki halka arabellekte (circular history) saklar.
-* Yer istasyonu ile bağlantı koptuğunda (`WIFI LOST / Ping Timeout > 1.5s`):
-* Sistem acil durum moduna geçer ve saklanan komutları anında tersine çevirir (`F` ➔ `B`, `L` ➔ `R`).
-* Araç, kablosuz ağ sinyalini yeniden yakalayana kadar daha önce geçtiği fiziksel rotayı **ters sırayla otonom olarak adım adım geri kat eder**.
+### 1. 🛡️ Autonomous Fail-Safe Backtracking (`pi.py`)
+While in active communication with ground control, the rover records every dispatched movement vector (direction and duration, e.g., `F 150`, `R 600`) into a local circular command history buffer.
+* Upon ground telemetry link loss (`WIFI LOST / Ping Timeout > 1.5s`):
+* The onboard Raspberry Pi triggers an emergency state and inverts cached movement vectors (`F` ➔ `B`, `L` ➔ `R`).
+* The rover **autonomously retraces its physical trajectory step-by-step in reverse** until wireless connection is re-established.
 
-### 2. 👁️ Çok Modlu VLM Karar Döngüsü (Vision-Language Decision Loop - `server.py`)
-Yer istasyonundaki sunucu, her döngüde rover kamerasından gelen kareyi, ultrasonik mesafe telemetrisini ve `mission.json` dosyasındaki hedef adımı yerel **Gemma 3 (12B)** görsel dil modeline sunar:
-* Model engelleri analiz eder; hedefe güvenli yaklaşmak için kısa adımlar (`F 150`) veya açılı manevralar (`R 400`, `L 400`) önerir.
-* Hedefe 20cm kala adımı başarıyla tamamlar (`NEXT`), aşılamayan engellerde güvenli sapma (`SKIP`) stratejisi uygular.
+### 2. 👁️ Multimodal VLM Decision Loop (`server.py`)
+During each navigation step, the ground control server feeds the live camera frame, real-time ultrasonic ranging, and the current waypoint from `mission.json` into a local **Gemma 3 (12B)** vision-language model:
+* The model analyzes physical obstacles, proposing micro-steps (`F 150`) or angular evasion maneuvers (`R 400`, `L 400`) to safely approach waypoints.
+* When within 20cm of an objective, it marks the waypoint complete (`NEXT`); if insurmountable obstacles block the vector, it executes a safe skip (`SKIP`).
 
-### 3. 🗺️ Dead-Reckoning Rota Takipçisi & Yol Metrikleri
-Araç her hareket ettiğinde yer istasyonu trigonometrik yönelim (`heading`) ve mesafe formülleriyle 2D kartezyen koordinatlarını (`x`, `y`) gerçek zamanlı hesaplar:
-* Yapılan her engelden kaçış manevrası "sapma (deviation)" olarak kaydedilir.
-* Toplam yol verimliliği (`path_efficiency = forward / total_commands * 100`) canlı hesaplanarak ekrana yansıtılır.
+### 3. 🗺️ Dead-Reckoning Odometry & Route Analytics
+With each motor actuation, the telemetry station computes 2D Cartesian coordinates (`x`, `y`) via trigonometric heading calculations:
+* Evasion maneuvers are logged as deviations.
+* Total path efficiency (`path_efficiency = forward / total_commands * 100`) is calculated and streamed live to the flight dashboard.
 
 ---
 
-## 🔌 Donanım & Pin Bağlantıları (`car.ino`)
+## 🔌 Hardware Specifications & Pinout (`car.ino`)
 
-| Donanım Bileşeni | Arduino Pini | İşlev |
+| Hardware Component | Arduino Pin | Function |
 | :--- | :---: | :--- |
-| **HC-SR04 Ultrasonik** | Pin 2 (Trig), Pin 3 (Echo) | Anlık engel mesafesi tespiti & acil fren |
-| **DHT22 Sensörü** | Pin 4 | Gezegen ortam sıcaklık ve nem telemetrisi |
-| **L298N Sürücü (Sol)** | Pin 8 (IN1), Pin 9 (IN2), Pin 5 (ENA PWM) | Sol motorlar ileri/geri ve PWM hız kontrolü |
-| **L298N Sürücü (Sağ)** | Pin 10 (IN3), Pin 11 (IN4), Pin 6 (ENB PWM) | Sağ motorlar ileri/geri ve PWM hız kontrolü |
-| **I2C LCD (16x2)** | Pin A4 (SDA), Pin A5 (SCL) | Gövde üzerinde durum ve telemetri ekranı |
-| **Raspberry Pi 4** | USB Seri (`/dev/ttyUSB0`) | 9600 Baud çift yönlü telemetri hattı |
+| **HC-SR04 Ultrasonic** | Pin 2 (Trig), Pin 3 (Echo) | Real-time obstacle ranging & emergency braking |
+| **DHT22 Sensor** | Pin 4 | Environmental temperature and humidity telemetry |
+| **L298N Driver (Left)** | Pin 8 (IN1), Pin 9 (IN2), Pin 5 (ENA PWM) | Left drive motors forward/reverse & speed PWM |
+| **L298N Driver (Right)** | Pin 10 (IN3), Pin 11 (IN4), Pin 6 (ENB PWM) | Right drive motors forward/reverse & speed PWM |
+| **I2C LCD (16x2)** | Pin A4 (SDA), Pin A5 (SCL) | Onboard chassis state & telemetry screen |
+| **Raspberry Pi 4** | USB Serial (`/dev/ttyUSB0`) | 9600 Baud bidirectional serial telemetry bus |
 
 ---
 
-## 📂 Depo Dosya Yapısı
+## 📂 Repository File Structure
 
 ```
 sol-cadente-rover/
-├── car.ino             # Arduino gömülü motor sürücüsü, sensör okuma ve otonom engelden kaçma
-├── pi.py               # Raspberry Pi telemetri köprüsü ve Wi-Fi koptuğunda geri iz sürme algoritması
-├── server.py           # Yer istasyonu, Gemma 3 VLM karar motoru, OpenCV video akışı ve dead-reckoning
-├── mission.json        # Gezegen görevi adım/hedef tanımları (Square Patrol, Waypoints)
-├── templates/          # Yer istasyonu canlı web arayüzleri
-│   ├── dashboard.html  # Canlı kamera, telemetri göstergeleri, rota haritası ve olay logları
-│   └── optimizer.html  # Görev simülasyon ve rota optimizasyon paneli
-├── sim/                # Yükseklik haritası (heightmap) arazi simülasyonu
-├── docs/               # Prototip donanım ve ödül töreni görselleri
-├── LICENSE             # MIT Açık Kaynak Lisansı
-└── README.md
+├── car.ino             # Arduino embedded firmware: motor PWM, sensors, emergency halt
+├── pi.py               # Raspberry Pi telemetry daemon & Wi-Fi fail-safe backtracking engine
+├── server.py           # Ground control station: Gemma 3 VLM pipeline, OpenCV stream, dead-reckoning
+├── mission.json        # Waypoint & patrol mission specifications (Square Patrol, Waypoints)
+├── templates/          # Telemetry web interfaces
+│   ├── dashboard.html  # Live camera HUD, telemetry indicators, trajectory canvas, event logs
+│   └── optimizer.html  # Mission simulation and route optimization console
+├── sim/                # Heightmap terrain simulation scripts
+├── docs/               # Hardware prototype and award ceremony photography
+├── LICENSE             # MIT Open Source License
+├── README.md           # English Documentation (Default)
+└── README.tr.md        # Turkish Documentation
 ```
 
 ---
 
-## 💻 Çalıştırma Rehberi
+## 💻 Setup & Execution Guide
 
-### 1. Arduino Sürücüsü:
-`car.ino` dosyasını Arduino IDE üzerinden rover gövdesindeki Arduino Uno/Mega kartına yükleyin.
+### 1. Arduino Firmware:
+Flash `car.ino` onto the rover's Arduino Uno/Mega using the Arduino IDE.
 
-### 2. Rover Üzerinde (Raspberry Pi):
+### 2. Rover Onboard Daemon (Raspberry Pi):
 ```bash
-# Telemetri daemon'unu ve seri köprüyü başlatın
+# Launch serial bridge and fail-safe watchdog
 python3 pi.py
 ```
 
-### 3. Yer İstasyonunda (Ground Control PC):
+### 3. Ground Control Station (PC):
 ```bash
-# Gereksinimleri yükleyin
+# Install dependencies
 pip install flask opencv-python requests
 
-# Ollama üzerinde Gemma 3 multimodal modelini hazır bulundurun
+# Serve Gemma 3 multimodal model via Ollama
 ollama run gemma3:12b
 
-# Yer kontrol sunucusunu başlatın
+# Launch ground telemetry server
 python3 server.py
 ```
-Sunucu başladığında tarayıcınızdan `http://localhost:5000` adresine giderek telemetri kokpitine bağlanabilirsiniz.
+Navigate to `http://localhost:5000` in your browser to access the flight control dashboard.
 
 ---
 
-## 🏆 Yarışma Başarısı & Takım
+## 🏆 Competition Achievement & Team Credits
 
-Bu proje, **Türkiye Uzay Ajansı (TUA)** tarafından düzenlenen **Astro Hackathon 2026**'da arazi testleri ve teknik jüri sunumu sonucunda **🥇 1.lik Ödülü (Şampiyonluk)** kazanmıştır.
+This project was awarded **🥇 1st Place (Winner)** at the **Astro Hackathon 2026** organized by the **Turkish Space Agency (TUA)** following physical terrain field tests and technical jury evaluations.
 
-* **Takım:** Sol Cadente
-* **Takım Üyeleri:** Mert Özemir, Utku Öksüz ve ekip arkadaşları.
-* **Mert Özemir Rolü:** Donanım ve devre mimarisi, Arduino sensör/motor katmanı, telemetri entegrasyonu ve otonom fail-safe sistemleri.
+* **Team:** Sol Cadente
+* **Team Members:** Mert Özemir, Utku Öksüz, and teammates.
+* **Role of Mert Özemir:** Hardware and circuit architecture, Arduino sensor/motor firmware, telemetry integration, and autonomous fail-safe safety systems.
