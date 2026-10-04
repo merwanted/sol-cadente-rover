@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+captured_frames/
+.env
+.venv/
+venv/
+.DS_Store
