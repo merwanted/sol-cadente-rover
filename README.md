@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="README.md">🇹🇷 <b>Türkçe</b></a> | <a href="README.en.md">🇬🇧 <b>English</b></a>
+</p>
+
 # 🪐 Sol Cadente (Ahien-14) — Otonom Gezegen Keşif Aracı (Planetary Rover)
 
 <div align=\"center\">
